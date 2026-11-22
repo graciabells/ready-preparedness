@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin User Guide | Ready Preparedness</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #F3F6F9;
+            color: #263849;
+            line-height: 1.7;
+        }
+
+        .topbar {
+            background: #1C354C;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            background: #F39A38;
+            width: 43px;
+            height: 43px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 21px;
+        }
+
+        .brand h2 {
+            font-size: 19px;
+            letter-spacing: 1px;
+        }
+
+        .brand span {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #D4DFE8;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            border: 1px solid #71879A;
+            padding: 10px 17px;
+            border-radius: 9px;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .back-btn:hover {
+            background: #F39A38;
+            border-color: #F39A38;
+            color: #1C354C;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #1C354C, #315775);
+            color: white;
+            padding: 65px 7%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 750px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            color: #FFB45D;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 48px);
+            margin: 12px 0;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: #E0EAF1;
+            max-width: 650px;
+            font-size: 15px;
+        }
+
+        .hero-icon {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 150px;
+            color: rgba(255,255,255,.08);
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            background: white;
+            padding: 23px;
+            border-radius: 14px;
+            border-left: 5px solid #F39A38;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(28,53,76,.05);
+        }
+
+        .intro h2 {
+            color: #1C354C;
+            margin-bottom: 6px;
+            font-size: 20px;
+        }
+
+        .section-title {
+            color: #1C354C;
+            font-size: 23px;
+            margin-bottom: 17px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 14px;
+            padding: 23px;
+            box-shadow: 0 5px 20px rgba(28,53,76,.05);
+            border: 1px solid #E7EDF2;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 14px;
+        }
+
+        .card-icon {
+            width: 43px;
+            height: 43px;
+            background: #FFF0DE;
+            color: #D98220;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            font-size: 19px;
+            flex-shrink: 0;
+        }
+
+        .card-heading h3 {
+            color: #1C354C;
+            font-size: 17px;
+        }
+
+        .guide-card p {
+            font-size: 13px;
+            color: #647586;
+            margin-bottom: 10px;
+        }
+
+        .guide-card ol {
+            padding-left: 20px;
+            font-size: 13px;
+            color: #46596A;
+        }
+
+        .guide-card li {
+            margin-bottom: 6px;
+        }
+
+        .reminder {
+            margin-top: 30px;
+            background: #FFF4E7;
+            border: 1px solid #F7D8B3;
+            padding: 22px;
+            border-radius: 13px;
+        }
+
+        .reminder h3 {
+            color: #9B5B13;
+            margin-bottom: 7px;
+        }
+
+        .reminder p {
+            color: #76552F;
+            font-size: 13px;
+        }
+
+        footer {
+            background: #1C354C;
+            color: #D5E0E9;
+            text-align: center;
+            padding: 22px;
+            margin-top: 55px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                padding: 15px 5%;
+            }
+
+            .hero {
+                padding: 45px 6%;
+            }
+
+            .hero-icon {
+                font-size: 100px;
+                right: -10px;
+            }
+
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin: 25px auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <div>
+                <h2>READY</h2>
+                <span>PREPAREDNESS</span>
+            </div>
+        </div>
+
+        <a href="./admin-dashboard.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-label">ADMINISTRATION GUIDE</span>
+            <h1>Admin User Guide</h1>
+            <p>
+                A simple guide to help administrators manage
+                Ready Preparedness and keep residents informed,
+                updated, and prepared for emergencies.
+            </p>
+        </div>
+
+        <i class="fa-solid fa-book-open hero-icon"></i>
+    </section>
+
+
+    <!-- GUIDE CONTENT -->
+    <main class="container">
+
+        <div class="intro">
+            <h2>Welcome, Administrator!</h2>
+            <p>
+                This guide explains how to use the different features
+                of the Ready Preparedness Admin Dashboard. Follow the
+                instructions below when managing community information.
+            </p>
+        </div>
+
+
+        <h2 class="section-title">Dashboard Instructions</h2>
+
+        <div class="guide-grid">
+
+            <!-- LOGIN -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </div>
+                    <h3>1. Admin Login</h3>
+                </div>
+
+                <p>Access the administration portal using your authorized account.</p>
+
+                <ol>
+                    <li>Open the Admin Login page.</li>
+                    <li>Enter your registered email address and password.</li>
+                    <li>Click the Login button.</li>
+                    <li>After successful login, the Admin Dashboard will open.</li>
+                </ol>
+            </div>
+
+
+            <!-- DASHBOARD -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3>2. Dashboard Overview</h3>
+                </div>
+
+                <p>View a quick summary of the information managed in the system.</p>
+
+                <ol>
+                    <li>Open Dashboard from the sidebar.</li>
+                    <li>Check the total announcements.</li>
+                    <li>View the number of evacuation centers.</li>
+                    <li>Check the Go Bag and First Aid item counts.</li>
+                </ol>
+            </div>
+
+
+            <!-- ANNOUNCEMENTS -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3>3. Disaster Announcements</h3>
+                </div>
+
+                <p>Create and update important information for residents.</p>
+
+                <ol>
+                    <li>Open Announcements.</li>
+                    <li>Click Add Announcement.</li>
+                    <li>Enter the required announcement details.</li>
+                    <li>Save the information.</li>
+                    <li>Review the announcement to make sure it is correct and published.</li>
+                </ol>
+            </div>
+
+
+            <!-- EVACUATION -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h3>4. Evacuation Centers</h3>
+                </div>
+
+                <p>Maintain an updated list of designated evacuation locations.</p>
+
+                <ol>
+                    <li>Open Evacuation Centers.</li>
+                    <li>Click Add Center.</li>
+                    <li>Enter the center name and required details.</li>
+                    <li>Save the entry.</li>
+                    <li>Update the information whenever necessary.</li>
+                </ol>
+            </div>
+
+
+            <!-- HOTLINES -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h3>5. Emergency Hotlines</h3>
+                </div>
+
+                <p>Keep emergency contact information accurate and accessible.</p>
+
+                <ol>
+                    <li>Open Emergency Hotlines.</li>
+                    <li>Click Add Hotline.</li>
+                    <li>Enter the organization name and contact number.</li>
+                    <li>Save the information.</li>
+                    <li>Check that the phone number is correct and active.</li>
+                </ol>
+            </div>
+
+
+            <!-- GO BAG -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-suitcase"></i>
+                    </div>
+                    <h3>6. Go Bag Checklist</h3>
+                </div>
+
+                <p>Manage the emergency supplies displayed on the residents' page.</p>
+
+                <ol>
+                    <li>Open Go Bag Checklist.</li>
+                    <li>Click Add Item to include a supply.</li>
+                    <li>Enter the item name and required image.</li>
+                    <li>Save the item.</li>
+                    <li>Edit or remove items when the list needs updating.</li>
+                </ol>
+            </div>
+
+
+            <!-- FIRST AID -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-kit-medical"></i>
+                    </div>
+                    <h3>7. First Aid Kit</h3>
+                </div>
+
+                <p>Maintain the list of basic first aid supplies for residents.</p>
+
+                <ol>
+                    <li>Open First Aid Kit.</li>
+                    <li>Click Add Item.</li>
+                    <li>Enter the item name and required image.</li>
+                    <li>Save the item.</li>
+                    <li>Review the list and update it when needed.</li>
+                </ol>
+            </div>
+
+
+            <!-- PREPAREDNESS GUIDE -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3>8. Preparedness Guide</h3>
+                </div>
+
+                <p>Provide residents with helpful disaster safety instructions.</p>
+
+                <ol>
+                    <li>Open Preparedness Guide.</li>
+                    <li>Click Add Guide.</li>
+                    <li>Enter the guide title and instructions.</li>
+                    <li>Save the guide.</li>
+                    <li>Review the instructions for accuracy and clarity.</li>
+                </ol>
+            </div>
+
+
+            <!-- WEATHER -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                    </div>
+                    <h3>9. Weather Reminders</h3>
+                </div>
+
+                <p>Share useful weather reminders and disaster-related updates.</p>
+
+                <ol>
+                    <li>Open Weather Reminders.</li>
+                    <li>Click Add Reminder.</li>
+                    <li>Enter the reminder details.</li>
+                    <li>Save the information.</li>
+                    <li>Update reminders when conditions change.</li>
+                </ol>
+            </div>
+
+
+            <!-- SETTINGS -->
+            <div class="guide-card">
+                <div class="card-heading">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                    <h3>10. Settings</h3>
+                </div>
+
+                <p>Review the system information and administrator-related settings.</p>
+
+                <ol>
+                    <li>Open Settings from the sidebar.</li>
+                    <li>Review the dashboard information.</li>
+                    <li>Manage account security through the authorized authentication process.</li>
+                    <li>Log out when finished using the dashboard.</li>
+                </ol>
+            </div>
+
+        </div>
+
+
+        <!-- REMINDER -->
+        <div class="reminder">
+            <h3>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Important Reminder
+            </h3>
+
+            <p>
+                Always check the accuracy of announcements, emergency
+                contact numbers, evacuation locations, and safety
+                instructions before publishing them. Keep your
+                administrator account private and never share your
+                password with unauthorized individuals.
+            </p>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <p>
+            <i class="fa-solid fa-shield-heart"></i>
+            READY PREPAREDNESS | Administrator Guide
+        </p>
+        <p>Keeping our community safe and prepared.</p>
+    </footer>
+
+</body>
+</html>

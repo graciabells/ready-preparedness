@@ -1,0 +1,25 @@
+
+{
+  "id": "./admin-dashboard.html",
+  "name": "Ready Preparedness Admin",
+  "short_name": "Ready Admin",
+  "description": "Ready Preparedness Administration Portal",
+  "start_url": "./admin-dashboard.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#1C354C",
+  "icons": [
+    {
+      "src": "./images/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

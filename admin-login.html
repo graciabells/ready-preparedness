@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Ready Preparedness</title>
+
+    <link rel="stylesheet" href="login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <!-- WELCOME PANEL -->
+    <section class="welcome-panel">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+
+            <div>
+                <h2>READY PREPAREDNESS</h2>
+                <p>Community Safety Portal</p>
+            </div>
+        </div>
+
+        <div class="welcome-content">
+
+            <span class="welcome-tag">
+                <i class="fa-solid fa-leaf"></i>
+                BE PREPARED. STAY SAFE.
+            </span>
+
+            <h1>
+                Prepared today.<br>
+                <span>Safer tomorrow.</span>
+            </h1>
+
+            <p>
+                Welcome to the administration portal.
+                Manage community announcements and
+                disaster preparedness information
+                in one convenient place.
+            </p>
+
+            <div class="safety-illustration">
+                <div class="circle circle-one"></div>
+                <div class="circle circle-two"></div>
+
+                <i class="fa-solid fa-shield-heart main-shield"></i>
+                <i class="fa-solid fa-house icon-house"></i>
+                <i class="fa-solid fa-heart-pulse icon-heart"></i>
+                <i class="fa-solid fa-cloud icon-cloud"></i>
+            </div>
+
+        </div>
+
+        <div class="welcome-footer">
+            <i class="fa-solid fa-location-dot"></i>
+            Community Disaster Preparedness
+        </div>
+
+    </section>
+
+    <!-- FORM PANEL -->
+    <section class="form-panel">
+
+        <div class="form-wrapper">
+
+            <!-- LOGIN FORM ONLY -->
+            <div class="form-view active" id="loginView">
+
+                <div class="form-heading">
+                    <span class="small-label">ADMINISTRATOR ACCESS</span>
+                    <h1>Welcome back!</h1>
+                    <p>Please sign in to access your admin dashboard.</p>
+                </div>
+
+                <form id="loginForm">
+
+                    <div class="input-group">
+                        <label for="loginEmail">Email Address</label>
+
+                        <div class="input-box">
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="Enter your admin email"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                required>
+
+                            <button type="button"
+                                class="password-eye"
+                                data-target="loginPassword"
+                                aria-label="Show password">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember">
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+
+                        <span class="forgot">Admin access only</span>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginButton">
+                        Sign In
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </form>
+
+                <div class="security-note">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Authorized administrators only.</span>
+                </div>
+
+            </div>
+
+            <div class="back-home">
+                <a href="index.html">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Residents Homepage
+                </a>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 Ready Preparedness. All rights reserved.
+        </div>
+
+    </section>
+
+</div>
+
+<script type="module" src="login.js"></script>
+
+</body>
+</html>

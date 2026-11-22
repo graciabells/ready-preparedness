@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Residents User Guide | Ready Preparedness</title>
+
+    <meta name="theme-color" content="#1C354C">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1C354C;
+            --blue: #294E6B;
+            --orange: #F49B36;
+            --light: #F4F7FA;
+            --text: #263746;
+            --muted: #687887;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--navy);
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            background: white;
+            color: var(--navy);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+        }
+
+        .brand h1 {
+            font-size: 19px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            opacity: .8;
+        }
+
+        .back-button {
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,.5);
+            padding: 9px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .back-button:hover {
+            background: white;
+            color: var(--navy);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1C354C, #315D7D);
+            color: white;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .hero-icon {
+            font-size: 48px;
+            color: var(--orange);
+            margin-bottom: 15px;
+        }
+
+        .hero h2 {
+            font-size: clamp(27px, 5vw, 40px);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #E3EDF4;
+        }
+
+        .container {
+            width: min(1050px, 90%);
+            margin: 35px auto 60px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 14px;
+            padding: 23px;
+            box-shadow: 0 4px 15px rgba(28, 53, 76, .07);
+            border: 1px solid #E7EDF2;
+        }
+
+        .guide-icon {
+            width: 48px;
+            height: 48px;
+            background: #FFF1DF;
+            color: #D77C16;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 21px;
+            margin-bottom: 14px;
+        }
+
+        .guide-card h3 {
+            color: var(--navy);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .guide-card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .guide-card ol,
+        .guide-card ul {
+            padding-left: 21px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .guide-card li {
+            margin-bottom: 7px;
+        }
+
+        .notice {
+            background: #FFF4E5;
+            border-left: 5px solid var(--orange);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .notice h3 {
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .notice p {
+            font-size: 14px;
+            color: #5C6570;
+        }
+
+        .bottom-link {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .bottom-link a {
+            display: inline-block;
+            background: var(--orange);
+            color: #182B3A;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px 22px;
+            border-radius: 9px;
+        }
+
+        footer {
+            background: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            header {
+                padding: 14px 5%;
+            }
+
+            .brand h1 {
+                font-size: 15px;
+            }
+
+            .brand p {
+                font-size: 10px;
+            }
+
+            .back-button {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+
+            .hero {
+                padding: 48px 18px;
+            }
+
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fas fa-shield-heart"></i>
+            </div>
+
+            <div>
+                <h1>Ready Preparedness</h1>
+                <p>Residents User Guide</p>
+            </div>
+        </div>
+
+        <a href="./residents.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-icon">
+            <i class="fas fa-book-open"></i>
+        </div>
+
+        <h2>Residents User Guide</h2>
+
+        <p>
+            Welcome to Ready Preparedness! This guide will help you
+            understand how to use the website and access important
+            disaster preparedness information.
+        </p>
+    </section>
+
+    <main class="container">
+
+        <div class="intro">
+            <h2>How to Use Ready Preparedness</h2>
+            <p>Follow these simple instructions to explore the website.</p>
+        </div>
+
+        <div class="guide-grid">
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-house"></i>
+                </div>
+
+                <h3>1. Access the Website</h3>
+
+                <p>
+                    Residents can open Ready Preparedness using a
+                    cellphone, tablet, or computer.
+                </p>
+
+                <ol>
+                    <li>Open your internet browser.</li>
+                    <li>Visit the Ready Preparedness website link.</li>
+                    <li>Explore the available sections using the navigation menu.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-mobile-screen-button"></i>
+                </div>
+
+                <h3>2. Install on Your Device</h3>
+
+                <p>
+                    You may add Ready Preparedness to your device's
+                    Home Screen for easier access.
+                </p>
+
+                <ul>
+                    <li><strong>Android:</strong> Open the browser menu and look for "Install app" or "Add to Home Screen."</li>
+                    <li><strong>iPhone:</strong> Open the website in Safari, tap Share, then select "Add to Home Screen."</li>
+                </ul>
+
+                <p>
+                    The available option may depend on your device
+                    and browser.
+                </p>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+
+                <h3>3. View Announcements</h3>
+
+                <p>
+                    Stay updated with important information posted
+                    by the barangay.
+                </p>
+
+                <ol>
+                    <li>Open the Announcements section.</li>
+                    <li>Read the latest published announcements.</li>
+                    <li>Check the details and follow the instructions provided.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+
+                <h3>4. Read the Preparedness Guide</h3>
+
+                <p>
+                    Learn important safety instructions for different
+                    emergency situations.
+                </p>
+
+                <ol>
+                    <li>Open Preparedness Guide.</li>
+                    <li>Select or read the available topics.</li>
+                    <li>Follow the instructions to help you prepare.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-backpack"></i>
+                </div>
+
+                <h3>5. Use the Go Bag Checklist</h3>
+
+                <p>
+                    Check the emergency essentials that you already
+                    have prepared.
+                </p>
+
+                <ol>
+                    <li>Open Go Bag Checklist.</li>
+                    <li>Review the listed emergency items.</li>
+                    <li>Tick the checkbox for items you already have.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-house-circle-check"></i>
+                </div>
+
+                <h3>6. Find Evacuation Centers</h3>
+
+                <p>
+                    View the designated evacuation centers in your
+                    barangay.
+                </p>
+
+                <ol>
+                    <li>Open Evacuation Centers.</li>
+                    <li>Read the names of the listed locations.</li>
+                    <li>Follow official barangay instructions during evacuation.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-phone-volume"></i>
+                </div>
+
+                <h3>7. Check Emergency Hotlines</h3>
+
+                <p>
+                    Find important contact numbers that may help
+                    during emergencies.
+                </p>
+
+                <ol>
+                    <li>Open Emergency Hotlines.</li>
+                    <li>Find the contact number you need.</li>
+                    <li>Use the number only for its intended emergency purpose.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-kit-medical"></i>
+                </div>
+
+                <h3>8. Check the First Aid Kit</h3>
+
+                <p>
+                    Review the basic supplies that should be available
+                    in your first aid kit.
+                </p>
+
+                <ol>
+                    <li>Open First Aid Kit.</li>
+                    <li>Review the listed supplies.</li>
+                    <li>Tick the items that you already have prepared.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+
+                <h3>9. Read Weather Reminders</h3>
+
+                <p>
+                    Check weather-related reminders and safety
+                    information published on the website.
+                </p>
+
+                <ol>
+                    <li>Open Weather Reminders.</li>
+                    <li>Read the available reminders.</li>
+                    <li>Follow official weather advisories and warnings.</li>
+                </ol>
+            </article>
+
+            <article class="guide-card">
+                <div class="guide-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+
+                <h3>10. Check Notifications</h3>
+
+                <p>
+                    Use the notification bell to view notifications
+                    available on the website.
+                </p>
+
+                <ol>
+                    <li>Look for the bell icon on the header.</li>
+                    <li>Tap or click the bell.</li>
+                    <li>Read the notifications displayed in the panel.</li>
+                </ol>
+
+                <p>
+                    Push notifications may require device permission
+                    and additional setup before they become available.
+                </p>
+            </article>
+
+        </div>
+
+        <div class="notice">
+            <h3>
+                <i class="fas fa-circle-exclamation"></i>
+                Important Reminder
+            </h3>
+
+            <p>
+                Ready Preparedness is an information resource for
+                residents. During an emergency, always follow official
+                announcements and instructions from barangay officials
+                and authorized emergency responders.
+            </p>
+        </div>
+
+        <div class="bottom-link">
+            <a href="./residents.html">
+                <i class="fas fa-arrow-left"></i>
+                Back to Ready Preparedness
+            </a>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Ready Preparedness</p>
+        <p>Be Ready. Stay Safe. Save Lives.</p>
+    </footer>
+
+</body>
+</html>

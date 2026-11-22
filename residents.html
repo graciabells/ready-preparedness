@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ready Preparedness | Residents</title>
+
+    <!-- PWA SETTINGS -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1C354C">
+
+    <!-- FONT AWESOME ICONS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="residents.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="header-brand">
+            <div class="brand-icon">🛡️</div>
+
+            <div>
+                <h1>Ready Preparedness</h1>
+                <p>Barangay Disaster Preparedness</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+
+            <!-- NOTIFICATION BUTTON -->
+            <button
+                type="button"
+                id="notificationToggle"
+                class="notification-toggle"
+                aria-label="Open notifications"
+                aria-expanded="false"
+            >
+                🔔
+                <span id="notificationCount" class="notification-count">0</span>
+            </button>
+
+            <!-- NOTIFICATION PANEL -->
+            <div
+                id="notificationPanel"
+                class="notification-panel"
+                aria-hidden="true"
+            >
+
+                <div class="notification-header">
+                    <h3>Notifications</h3>
+
+                    <button
+                        type="button"
+                        id="closeNotifications"
+                        aria-label="Close notifications"
+                    >
+                        ✕
+                    </button>
+                </div>
+
+                <div id="notificationList">
+                    <p class="empty-message">
+                        Loading notifications...
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- HEADER MENU BUTTON -->
+            <button
+                type="button"
+                id="menuToggle"
+                class="menu-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span class="menu-icon">☰</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- HEADER NAVIGATION -->
+    <nav id="navigation" class="header-navigation" aria-hidden="true">
+
+        <a href="#home">Home</a>
+        <a href="#announcements">Announcements</a>
+
+        <!-- USER GUIDE -->
+        <a href="./residents-user-guide.html">
+            <i class="fas fa-book-open"></i>
+            User Guide
+        </a>
+
+        <a href="#goBag">Go Bag Checklist</a>
+        <a href="#evacuation">Evacuation Centers</a>
+        <a href="#hotlines">Emergency Hotlines</a>
+        <a href="#firstAid">First Aid Kit</a>
+        <a href="#weather">Weather Reminders</a>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="resident-main">
+
+
+        <!-- =========================
+             HOME PAGE
+        ========================== -->
+        <section
+            id="home"
+            class="page-section home-section"
+            data-page-section="home"
+        >
+
+            <div class="home-hero animated-ready">
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        BARANGAY DISASTER PREPAREDNESS
+                    </span>
+
+                    <h2>
+                        Be Ready.<br>
+                        Stay Safe.
+                    </h2>
+
+                    <p>
+                        Welcome to Ready Preparedness!
+
+                        Stay informed, stay alert, and be prepared
+                        for emergencies through our barangay's
+                        disaster preparedness information.
+                    </p>
+
+                    <a href="#announcements" class="hero-button">
+                        View Announcements
+                    </a>
+
+                </div>
+
+                <div class="hero-decoration">
+                    <div class="hero-shield">🛡️</div>
+                </div>
+
+            </div>
+
+
+            <div class="home-information">
+
+                <div class="home-info-card">
+                    <span>📢</span>
+                    <h3>Stay Informed</h3>
+                    <p>
+                        Check the latest barangay announcements
+                        and important reminders.
+                    </p>
+                </div>
+
+                <div class="home-info-card">
+                    <span>🚨</span>
+                    <h3>Stay Prepared</h3>
+                    <p>
+                        Learn what to do before, during,
+                        and after an emergency.
+                    </p>
+                </div>
+
+                <div class="home-info-card">
+                    <span>🤝</span>
+                    <h3>Stay Safe</h3>
+                    <p>
+                        Know where to find important
+                        emergency information.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="home-reminder">
+                <h3>Important Reminder</h3>
+
+                <p>
+                    Always stay alert, follow official barangay
+                    announcements, and prepare your emergency
+                    essentials.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ANNOUNCEMENTS
+        ========================== -->
+        <section
+            id="announcements"
+            class="page-section content-section"
+            data-page-section="announcements"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>📢</span>
+
+                <div>
+                    <h2>Announcements</h2>
+                    <p>
+                        Latest disaster announcements from the barangay.
+                    </p>
+                </div>
+            </div>
+
+            <div id="announcementList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading announcements...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PREPAREDNESS GUIDE
+        ========================== -->
+        <section
+            id="guide"
+            class="page-section content-section"
+            data-page-section="guide"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>📘</span>
+
+                <div>
+                    <h2>Preparedness Guide</h2>
+                    <p>
+                        Important instructions and safety guidelines.
+                    </p>
+                </div>
+            </div>
+
+            <div id="guideList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading preparedness guides...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             GO BAG CHECKLIST
+        ========================== -->
+        <section
+            id="goBag"
+            class="page-section content-section"
+            data-page-section="goBag"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>🎒</span>
+
+                <div>
+                    <h2>Go Bag Checklist</h2>
+                    <p>
+                        Check the emergency essentials you have prepared.
+                    </p>
+                </div>
+            </div>
+
+            <div id="goBagList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading Go Bag items...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             EVACUATION CENTERS
+        ========================== -->
+        <section
+            id="evacuation"
+            class="page-section content-section"
+            data-page-section="evacuation"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>🏫</span>
+
+                <div>
+                    <h2>Evacuation Centers</h2>
+                    <p>
+                        Find the designated evacuation centers
+                        in your barangay.
+                    </p>
+                </div>
+            </div>
+
+            <div id="evacuationList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading evacuation centers...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             EMERGENCY HOTLINES
+        ========================== -->
+        <section
+            id="hotlines"
+            class="page-section content-section"
+            data-page-section="hotlines"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>☎️</span>
+
+                <div>
+                    <h2>Emergency Hotlines</h2>
+                    <p>
+                        Important contact numbers for emergencies.
+                    </p>
+                </div>
+            </div>
+
+            <div id="hotlineList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading emergency hotlines...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FIRST AID KIT
+        ========================== -->
+        <section
+            id="firstAid"
+            class="page-section content-section"
+            data-page-section="firstAid"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>🩹</span>
+
+                <div>
+                    <h2>First Aid Kit</h2>
+                    <p>
+                        Check the essential items in your first aid kit.
+                    </p>
+                </div>
+            </div>
+
+            <div id="firstAidList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading First Aid items...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WEATHER REMINDERS
+        ========================== -->
+        <section
+            id="weather"
+            class="page-section content-section"
+            data-page-section="weather"
+            hidden
+        >
+
+            <div class="section-heading">
+                <span>🌦️</span>
+
+                <div>
+                    <h2>Weather Reminders</h2>
+                    <p>
+                        Weather-related reminders and safety instructions.
+                    </p>
+                </div>
+            </div>
+
+            <div id="weatherList" class="content-grid">
+
+                <p class="empty-message">
+                    Loading weather reminders...
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         MORE MENU
+    ========================== -->
+    <div
+        id="moreMenu"
+        class="more-menu"
+        aria-label="More navigation options"
+    >
+
+        <div class="more-menu-header">
+            <h3>More Services</h3>
+        </div>
+
+        <!-- PREPAREDNESS GUIDE MOVED HERE -->
+        <a href="#guide">
+            <span>📘</span>
+            Preparedness Guide
+        </a>
+
+        <a href="#goBag">
+            <span>🎒</span>
+            Go Bag Checklist
+        </a>
+
+        <a href="#evacuation">
+            <span>🏫</span>
+            Evacuation Centers
+        </a>
+
+        <a href="#hotlines">
+            <span>☎️</span>
+            Emergency Hotlines
+        </a>
+
+        <a href="#firstAid">
+            <span>🩹</span>
+            First Aid Kit
+        </a>
+
+        <a href="#weather">
+            <span>🌦️</span>
+            Weather Reminders
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         BOTTOM NAVIGATION
+    ========================== -->
+    <nav
+        class="bottom-navigation"
+        aria-label="Main navigation"
+    >
+
+        <a href="#home" class="bottom-nav-link active">
+            <span>⌂</span>
+            <small>Home</small>
+        </a>
+
+        <a href="#announcements" class="bottom-nav-link">
+            <span>📢</span>
+            <small>Announcements</small>
+        </a>
+
+        <!-- USER GUIDE -->
+        <a href="./residents-user-guide.html" class="bottom-nav-link">
+            <span>📖</span>
+            <small>User Guide</small>
+        </a>
+
+        <button
+            type="button"
+            id="moreToggle"
+            class="bottom-nav-link"
+            aria-expanded="false"
+            aria-controls="moreMenu"
+        >
+            <span>☰</span>
+            <small>More</small>
+        </button>
+
+    </nav>
+
+
+    <!-- FOOTER -->
+    <footer class="resident-footer">
+
+        <p>
+            © 2026 Ready Preparedness.
+            Barangay Disaster Preparedness Information System.
+        </p>
+
+        <p>Be Ready. Stay Safe.</p>
+
+    </footer>
+
+
+    <!-- RESIDENT JAVASCRIPT -->
+    <script type="module" src="residents.js"></script>
+
+    <!-- PWA SERVICE WORKER -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js")
+                    .then(() => console.log("Ready Preparedness PWA is ready!"))
+                    .catch(error => console.error("Service Worker Error:", error));
+            });
+        }
+    </script>
+
+</body>
+</html>

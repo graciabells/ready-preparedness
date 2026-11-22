@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Ready Preparedness</title>
+
+    <!-- ADMIN PWA SETTINGS -->
+    <link rel="manifest" href="./admin-manifest.json">
+    <meta name="theme-color" content="#1C354C">
+
+    <link rel="stylesheet" href="admin.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <div>
+                <h2>READY</h2>
+                <span>PREPAREDNESS</span>
+            </div>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+
+        <nav class="navigation">
+
+            <button class="nav-link active" data-section="dashboard">
+                <i class="fa-solid fa-chart-pie"></i>
+                Dashboard
+            </button>
+
+            <button class="nav-link" data-section="announcements">
+                <i class="fa-solid fa-bullhorn"></i>
+                Announcements
+            </button>
+
+            <button class="nav-link" data-section="evacuation">
+                <i class="fa-solid fa-location-dot"></i>
+                Evacuation Centers
+            </button>
+
+            <button class="nav-link" data-section="hotlines">
+                <i class="fa-solid fa-phone"></i>
+                Emergency Hotlines
+            </button>
+
+            <button class="nav-link" data-section="gobag">
+                <i class="fa-solid fa-suitcase"></i>
+                Go Bag Checklist
+            </button>
+
+            <button class="nav-link" data-section="firstaid">
+                <i class="fa-solid fa-kit-medical"></i>
+                First Aid Kit
+            </button>
+
+            <button class="nav-link" data-section="guide">
+                <i class="fa-solid fa-book-open"></i>
+                Preparedness Guide
+            </button>
+
+            <button class="nav-link" data-section="weather">
+                <i class="fa-solid fa-cloud-sun"></i>
+                Weather Reminders
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="menu-label">PREFERENCES</div>
+
+            <!-- ADMIN USER GUIDE -->
+            <a href="./admin-user-guide.html" class="nav-link">
+                <i class="fa-solid fa-circle-question"></i>
+                User Guide
+            </a>
+
+            <button class="nav-link" data-section="settings">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </button>
+
+            <a href="admin-login.html" class="logout" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
+        <div class="sidebar-footer">
+            <i class="fa-solid fa-heart"></i>
+            Keeping our community safe.
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-heading">
+                <span>READY PREPAREDNESS / ADMIN</span>
+                <h2 id="pageTitle">Dashboard Overview</h2>
+            </div>
+
+            <div class="admin-profile">
+                <div class="profile-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <small>Admin Account</small>
+                </div>
+            </div>
+
+        </header>
+
+
+        <div class="content-area">
+
+            <!-- DASHBOARD -->
+            <section class="content-section active" id="dashboard">
+
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <span>ADMINISTRATION PORTAL</span>
+                        <h1>Welcome, Administrator!</h1>
+                        <p>
+                            Together, we build a safer and more prepared community.
+                        </p>
+                    </div>
+
+                    <i class="fa-solid fa-shield-heart banner-icon"></i>
+                </div>
+
+
+                <!-- STATISTICS -->
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <div>
+                            <span>Announcements</span>
+                            <h2 id="statAnnouncements">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span>Evacuation Centers</span>
+                            <h2 id="statEvacuation">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-suitcase"></i>
+                        </div>
+                        <div>
+                            <span>Go Bag Items</span>
+                            <h2 id="statGobag">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-kit-medical"></i>
+                        </div>
+                        <div>
+                            <span>First Aid Items</span>
+                            <h2 id="statFirstaid">0</h2>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- SYSTEM OVERVIEW -->
+                <div class="dashboard-grid">
+
+                    <div class="panel system-overview">
+
+                        <div class="panel-heading">
+                            <div>
+                                <h3>
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                    System Overview
+                                </h3>
+                                <p>Ready Preparedness – Community Safety Portal</p>
+                            </div>
+
+                            <i class="fa-solid fa-circle-check overview-check"></i>
+                        </div>
+
+                        <div class="overview-content">
+
+                            <div class="overview-shield">
+                                <i class="fa-solid fa-shield-heart"></i>
+                            </div>
+
+                            <h2>Ready &amp; Prepared</h2>
+
+                            <p>
+                                Keep your community informed and prepared
+                                by regularly updating disaster announcements,
+                                emergency contacts, evacuation centers,
+                                and preparedness checklists.
+                            </p>
+
+                            <span class="prepared-status">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Community Preparedness Portal
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ANNOUNCEMENTS -->
+            <section class="content-section" id="announcements">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Disaster Announcements</h1>
+                        <p>Create and manage community announcements.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Announcement
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>Announcement List</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- EVACUATION CENTERS -->
+            <section class="content-section" id="evacuation">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Evacuation Centers</h1>
+                        <p>Manage the designated evacuation locations.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Center
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>Evacuation Center List</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- EMERGENCY HOTLINES -->
+            <section class="content-section" id="hotlines">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Emergency Hotlines</h1>
+                        <p>Manage important emergency contact information.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Hotline
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>Emergency Hotline List</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- GO BAG CHECKLIST -->
+            <section class="content-section" id="gobag">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Go Bag Checklist</h1>
+                        <p>Manage the emergency supplies shown to residents.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Item
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>Go Bag Items</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- FIRST AID KIT -->
+            <section class="content-section" id="firstaid">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>First Aid Kit Checklist</h1>
+                        <p>Manage the first aid supplies shown to residents.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Item
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>First Aid Items</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- PREPAREDNESS GUIDE -->
+            <section class="content-section" id="guide">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Preparedness Guide</h1>
+                        <p>Manage safety guides and instructions.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Guide
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>Guide List</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- WEATHER REMINDERS -->
+            <section class="content-section" id="weather">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Weather Reminders</h1>
+                        <p>Manage weather and disaster reminders.</p>
+                    </div>
+
+                    <button class="primary-btn add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Reminder
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-heading">
+                        <h3>Reminder List</h3>
+                        <span class="item-count">0 items</span>
+                    </div>
+
+                    <div class="record-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- SETTINGS -->
+            <section class="content-section" id="settings">
+
+                <div class="section-intro">
+                    <div>
+                        <h1>Settings</h1>
+                        <p>Admin dashboard preferences.</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Dashboard Information</h3>
+
+                    <p class="settings-note">
+                        Ready Preparedness – Community Disaster Preparedness Portal
+                    </p>
+
+                    <p class="settings-note">
+                        Administrator access and account security are managed through Supabase Authentication.
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal" id="recordModal">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <div>
+                <span>CONTENT MANAGEMENT</span>
+                <h2 id="modalTitle">Add New Item</h2>
+            </div>
+
+            <button class="close-modal" id="closeModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form id="recordForm">
+
+            <div id="formFields"></div>
+
+            <div class="modal-actions">
+
+                <button type="button" class="cancel-btn" id="cancelModal">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST MESSAGE -->
+<div id="toast" class="toast"></div>
+
+
+<!-- SUPABASE CONNECTED ADMIN SCRIPT -->
+<script type="module" src="admin.js"></script>
+
+<!-- ADMIN PWA SERVICE WORKER -->
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => console.log("Ready Preparedness Admin PWA is ready!"))
+                .catch(error => console.error("Admin Service Worker Error:", error));
+        });
+    }
+</script>
+
+</body>
+</html>
