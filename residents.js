@@ -91,7 +91,6 @@ menuToggle?.addEventListener("click", () => {
 
     if (isOpen) {
         closeMoreMenu();
-        closeNotifications();
     }
 });
 
@@ -107,7 +106,6 @@ moreToggle?.addEventListener("click", () => {
 
     if (isOpen) {
         closeNavigation();
-        closeNotifications();
     }
 });
 
@@ -158,46 +156,6 @@ document.addEventListener("click", event => {
 
 
 // =====================================
-// NOTIFICATIONS
-// =====================================
-
-const notificationToggle = document.getElementById("notificationToggle");
-const notificationPanel = document.getElementById("notificationPanel");
-const closeNotificationsButton = document.getElementById("closeNotifications");
-
-function closeNotifications() {
-    notificationPanel?.classList.remove("active");
-    notificationToggle?.setAttribute("aria-expanded", "false");
-    notificationPanel?.setAttribute("aria-hidden", "true");
-}
-
-notificationToggle?.addEventListener("click", () => {
-    const isOpen = notificationPanel?.classList.toggle("active");
-
-    notificationToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
-    notificationPanel?.setAttribute("aria-hidden", String(!isOpen));
-
-    if (isOpen) {
-        closeNavigation();
-        closeMoreMenu();
-    }
-});
-
-closeNotificationsButton?.addEventListener("click", closeNotifications);
-
-document.addEventListener("click", event => {
-    if (
-        notificationPanel &&
-        notificationToggle &&
-        !notificationPanel.contains(event.target) &&
-        !notificationToggle.contains(event.target)
-    ) {
-        closeNotifications();
-    }
-});
-
-
-// =====================================
 // ESCAPE KEY
 // =====================================
 
@@ -205,7 +163,6 @@ document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
         closeNavigation();
         closeMoreMenu();
-        closeNotifications();
     }
 });
 
@@ -525,29 +482,6 @@ function renderWeather(item) {
 
 
 // =====================================
-// NOTIFICATION CONTENT
-// =====================================
-
-function renderNotification(item) {
-    const title = escapeHTML(item.title || "New Announcement");
-    const message = escapeHTML(item.message || "");
-    const date = formatDate(item.date || item.created_at);
-    const category = escapeHTML(item.category || "General");
-
-    return `
-        <article class="notification-card">
-            <div class="announcement-meta">
-                <span class="category-tag">${category}</span>
-                <span>${date}</span>
-            </div>
-            <h3>🔔 ${title}</h3>
-            <p>${message}</p>
-        </article>
-    `;
-}
-
-
-// =====================================
 // LOAD ALL RESIDENT INFORMATION
 // =====================================
 
@@ -593,27 +527,6 @@ async function loadResidentsPage() {
         "weatherList",
         renderWeather
     );
-
-    const notificationList = document.getElementById("notificationList");
-
-    if (notificationList) {
-        if (announcements.length > 0) {
-            notificationList.innerHTML = announcements
-                .map(renderNotification)
-                .join("");
-        } else {
-            showMessage(
-                "notificationList",
-                "No new notifications yet."
-            );
-        }
-    }
-
-    const notificationCount = document.getElementById("notificationCount");
-
-    if (notificationCount) {
-        notificationCount.textContent = announcements.length;
-    }
 
     console.log("Residents page loaded successfully.");
 

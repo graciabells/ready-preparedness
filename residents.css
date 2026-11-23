@@ -113,7 +113,6 @@ a {
     position: relative;
 }
 
-.notification-toggle,
 .menu-toggle {
     width: 42px;
     height: 42px;
@@ -125,25 +124,8 @@ a {
     position: relative;
 }
 
-.notification-toggle:hover,
 .menu-toggle:hover {
     background: #dce9fa;
-}
-
-.notification-count {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    min-width: 19px;
-    height: 19px;
-    padding: 0 4px;
-    background: var(--red);
-    color: white;
-    border-radius: 20px;
-    font-size: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .menu-toggle {
@@ -185,68 +167,6 @@ a {
 }
 
 /* =========================================
-   NOTIFICATION PANEL
-========================================= */
-
-.notification-panel {
-    position: absolute;
-    top: 55px;
-    right: 0;
-    width: min(350px, 90vw);
-    max-height: 420px;
-    overflow-y: auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    padding: 16px;
-    display: none;
-    z-index: 200;
-}
-
-.notification-panel.active {
-    display: block;
-    animation: fadeIn 0.25s ease;
-}
-
-.notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.notification-header h3 {
-    color: var(--navy);
-    font-size: 17px;
-}
-
-.notification-header button {
-    background: none;
-    border: none;
-    font-size: 19px;
-    color: var(--muted);
-}
-
-.notification-card {
-    padding: 13px;
-    background: var(--background);
-    border-radius: 11px;
-    margin-bottom: 10px;
-}
-
-.notification-card h3 {
-    color: var(--navy);
-    font-size: 14px;
-    margin: 8px 0;
-}
-
-.notification-card p {
-    font-size: 13px;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
-
-/* =========================================
    MAIN CONTENT
 ========================================= */
 
@@ -272,11 +192,7 @@ a {
 
 .home-hero {
     min-height: 370px;
-    background: linear-gradient(
-        120deg,
-        #0c1d3b,
-        #244b83
-    );
+    background: linear-gradient(120deg, #0c1d3b, #244b83);
     border-radius: 24px;
     padding: 55px;
     display: flex;
@@ -576,7 +492,6 @@ a {
 
 /* =========================================
    GO BAG AND FIRST AID CHECKLIST
-   ONE NAME BELOW IMAGE ONLY
 ========================================= */
 
 .checklist-card {
@@ -605,8 +520,6 @@ a {
     min-width: 0;
     text-align: center;
 }
-
-/* Image container */
 
 .checklist-image {
     width: 100%;
@@ -638,13 +551,9 @@ a {
     font-size: 35px;
 }
 
-/* Hide old heading inside item content */
-
 .checklist-card .item-content h3 {
     display: none !important;
 }
-
-/* Single item name below image */
 
 .checklist-item-name {
     width: 100%;
@@ -654,8 +563,6 @@ a {
     margin: 8px 0 3px;
     overflow-wrap: anywhere;
 }
-
-/* Checked appearance */
 
 .checklist-card.is-checked {
     border-color: var(--green);
@@ -716,7 +623,7 @@ a {
     border-radius: 17px;
     background: white;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
-    z-index: 300;
+    z-index: 10000;
     display: none;
     animation: menuUp 0.25s ease;
 }
@@ -757,6 +664,7 @@ a {
 
 /* =========================================
    BOTTOM NAVIGATION
+   HOME - ANNOUNCEMENTS - USER GUIDE - MORE
 ========================================= */
 
 .bottom-navigation {
@@ -773,7 +681,7 @@ a {
     padding-bottom: max(7px, env(safe-area-inset-bottom));
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     border-top: 1px solid var(--border);
-    z-index: 250;
+    z-index: 9999;
 }
 
 .bottom-nav-link {
@@ -791,16 +699,17 @@ a {
     transition: 0.2s;
 }
 
-.bottom-nav-link span {
+.bottom-nav-link i {
     font-size: 22px;
     line-height: 1;
+    display: block;
 }
 
 .bottom-nav-link small {
     font-size: 10px;
     text-align: center;
     line-height: 1.2;
-    overflow-wrap: anywhere;
+    white-space: nowrap;
 }
 
 .bottom-nav-link:hover,
@@ -808,7 +717,7 @@ a {
     color: var(--blue);
 }
 
-.bottom-nav-link.active span {
+.bottom-nav-link.active i {
     transform: translateY(-2px);
 }
 
@@ -918,7 +827,7 @@ a {
 @media (max-width: 600px) {
 
     body {
-        padding-bottom: 100px;
+        padding-bottom: calc(100px + env(safe-area-inset-bottom));
     }
 
     .main-header {
@@ -944,14 +853,10 @@ a {
         gap: 8px;
     }
 
-    .notification-toggle,
     .menu-toggle {
         width: 37px;
         height: 37px;
         font-size: 17px;
-    }
-
-    .menu-toggle {
         display: block;
     }
 
@@ -1077,29 +982,78 @@ a {
         font-size: 14px !important;
     }
 
+    /* MORE MENU */
+
     .more-menu {
+        position: fixed;
+        bottom: calc(82px + env(safe-area-inset-bottom));
         right: 4%;
-        bottom: 86px;
         width: min(280px, 92vw);
+        max-height: 65vh;
+        z-index: 10000;
     }
+
+    /* BOTTOM NAVIGATION */
 
     .bottom-navigation {
-        min-height: 70px;
-        padding-left: 2%;
-        padding-right: 2%;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        min-height: 72px;
+        height: auto;
+        padding: 7px 3%;
+        padding-bottom: max(7px, env(safe-area-inset-bottom));
+        background: #ffffff;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        z-index: 9999;
+        visibility: visible;
+        opacity: 1;
     }
 
-    .bottom-nav-link span {
-        font-size: 21px;
+    .bottom-navigation .bottom-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-width: 0;
+        min-height: 52px;
+        padding: 6px 2px;
+        gap: 5px;
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        visibility: visible;
+        opacity: 1;
     }
 
-    .bottom-nav-link small {
+    .bottom-navigation .bottom-nav-link i {
+        display: block;
+        font-size: 22px;
+        line-height: 1;
+        visibility: visible;
+    }
+
+    .bottom-navigation .bottom-nav-link small {
+        display: block;
         font-size: 9px;
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+        visibility: visible;
     }
 
-    .notification-panel {
-        right: -5px;
-        width: min(320px, 92vw);
+    .bottom-navigation .bottom-nav-link.active {
+        color: var(--blue);
+    }
+
+    .bottom-navigation .bottom-nav-link.active i {
+        transform: translateY(-2px);
     }
 
     .resident-footer {
@@ -1122,7 +1076,11 @@ a {
         font-size: 8px;
     }
 
-    .bottom-nav-link small {
+    .bottom-navigation .bottom-nav-link i {
+        font-size: 20px;
+    }
+
+    .bottom-navigation .bottom-nav-link small {
         font-size: 8px;
     }
 
@@ -1144,150 +1102,5 @@ a {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-}
-
-/* =========================================
-   MOBILE NAVIGATION FIX
-========================================= */
-
-@media (max-width: 600px) {
-
-    .bottom-navigation {
-        display: grid !important;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0;
-        right: 0;
-        width: 100%;
-        min-height: 70px;
-        z-index: 9999;
-        background: #ffffff;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    .bottom-nav-link {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    .bottom-nav-link span,
-    .bottom-nav-link small {
-        display: block !important;
-        visibility: visible !important;
-    }
-
-    .more-menu {
-        position: fixed;
-        bottom: 80px;
-        right: 4%;
-        z-index: 10000;
-    }
-}
-
-/* =========================================
-   RESTORE ORIGINAL MOBILE BOTTOM NAVIGATION
-========================================= */
-
-@media (max-width: 600px) {
-
-    body {
-        padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
-    }
-
-    .bottom-navigation {
-        display: grid !important;
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        align-items: center !important;
-
-        position: fixed !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-
-        width: 100% !important;
-        min-height: 72px !important;
-        height: auto !important;
-
-        padding: 7px 3% !important;
-        padding-bottom: max(7px, env(safe-area-inset-bottom)) !important;
-
-        background: #ffffff !important;
-        border-top: 1px solid var(--border);
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-
-        z-index: 9999 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    .bottom-navigation .bottom-nav-link {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        width: 100%;
-        min-width: 0;
-        min-height: 52px;
-
-        padding: 6px 2px !important;
-        gap: 5px;
-
-        background: transparent !important;
-        border: none !important;
-
-        color: var(--muted);
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    .bottom-navigation .bottom-nav-link span {
-        display: block !important;
-        font-size: 22px !important;
-        line-height: 1 !important;
-        visibility: visible !important;
-    }
-
-    .bottom-navigation .bottom-nav-link small {
-        display: block !important;
-        font-size: 10px !important;
-        line-height: 1.2 !important;
-        text-align: center;
-        white-space: nowrap;
-        visibility: visible !important;
-    }
-
-    .bottom-navigation .bottom-nav-link.active {
-        color: var(--blue) !important;
-    }
-
-    .bottom-navigation .bottom-nav-link.active span {
-        transform: translateY(-2px);
-    }
-
-    .more-menu {
-        position: fixed !important;
-        bottom: calc(82px + env(safe-area-inset-bottom)) !important;
-        right: 4% !important;
-        width: min(280px, 92vw) !important;
-        z-index: 10000 !important;
-    }
-}
-
-@media (max-width: 360px) {
-
-    .bottom-navigation .bottom-nav-link span {
-        font-size: 20px !important;
-    }
-
-    .bottom-navigation .bottom-nav-link small {
-        font-size: 9px !important;
     }
 }

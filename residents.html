@@ -19,7 +19,6 @@
     >
 
     <link rel="stylesheet" href="residents.css">
-
 </head>
 
 <body>
@@ -38,46 +37,6 @@
 
         <div class="header-actions">
 
-            <!-- NOTIFICATION BUTTON -->
-            <button
-                type="button"
-                id="notificationToggle"
-                class="notification-toggle"
-                aria-label="Open notifications"
-                aria-expanded="false"
-            >
-                🔔
-                <span id="notificationCount" class="notification-count">0</span>
-            </button>
-
-            <!-- NOTIFICATION PANEL -->
-            <div
-                id="notificationPanel"
-                class="notification-panel"
-                aria-hidden="true"
-            >
-
-                <div class="notification-header">
-                    <h3>Notifications</h3>
-
-                    <button
-                        type="button"
-                        id="closeNotifications"
-                        aria-label="Close notifications"
-                    >
-                        ✕
-                    </button>
-                </div>
-
-                <div id="notificationList">
-                    <p class="empty-message">
-                        Loading notifications...
-                    </p>
-                </div>
-
-            </div>
-
-            <!-- HEADER MENU BUTTON -->
             <button
                 type="button"
                 id="menuToggle"
@@ -99,7 +58,6 @@
         <a href="#home">Home</a>
         <a href="#announcements">Announcements</a>
 
-        <!-- USER GUIDE -->
         <a href="./residents-user-guide.html">
             <i class="fas fa-book-open"></i>
             User Guide
@@ -117,10 +75,7 @@
     <!-- MAIN CONTENT -->
     <main class="resident-main">
 
-
-        <!-- =========================
-             HOME PAGE
-        ========================== -->
+        <!-- HOME PAGE -->
         <section
             id="home"
             class="page-section home-section"
@@ -206,9 +161,7 @@
         </section>
 
 
-        <!-- =========================
-             ANNOUNCEMENTS
-        ========================== -->
+        <!-- ANNOUNCEMENTS -->
         <section
             id="announcements"
             class="page-section content-section"
@@ -228,19 +181,15 @@
             </div>
 
             <div id="announcementList" class="content-grid">
-
                 <p class="empty-message">
                     Loading announcements...
                 </p>
-
             </div>
 
         </section>
 
 
-        <!-- =========================
-             PREPAREDNESS GUIDE
-        ========================== -->
+        <!-- PREPAREDNESS GUIDE -->
         <section
             id="guide"
             class="page-section content-section"
@@ -260,19 +209,15 @@
             </div>
 
             <div id="guideList" class="content-grid">
-
                 <p class="empty-message">
                     Loading preparedness guides...
                 </p>
-
             </div>
 
         </section>
 
 
-        <!-- =========================
-             GO BAG CHECKLIST
-        ========================== -->
+        <!-- GO BAG CHECKLIST -->
         <section
             id="goBag"
             class="page-section content-section"
@@ -292,19 +237,15 @@
             </div>
 
             <div id="goBagList" class="content-grid">
-
                 <p class="empty-message">
                     Loading Go Bag items...
                 </p>
-
             </div>
 
         </section>
 
 
-        <!-- =========================
-             EVACUATION CENTERS
-        ========================== -->
+        <!-- EVACUATION CENTERS -->
         <section
             id="evacuation"
             class="page-section content-section"
@@ -325,19 +266,15 @@
             </div>
 
             <div id="evacuationList" class="content-grid">
-
                 <p class="empty-message">
                     Loading evacuation centers...
                 </p>
-
             </div>
 
         </section>
 
 
-        <!-- =========================
-             EMERGENCY HOTLINES
-        ========================== -->
+        <!-- EMERGENCY HOTLINES -->
         <section
             id="hotlines"
             class="page-section content-section"
@@ -357,19 +294,15 @@
             </div>
 
             <div id="hotlineList" class="content-grid">
-
                 <p class="empty-message">
                     Loading emergency hotlines...
                 </p>
-
             </div>
 
         </section>
 
 
-        <!-- =========================
-             FIRST AID KIT
-        ========================== -->
+        <!-- FIRST AID KIT -->
         <section
             id="firstAid"
             class="page-section content-section"
@@ -389,19 +322,15 @@
             </div>
 
             <div id="firstAidList" class="content-grid">
-
                 <p class="empty-message">
                     Loading First Aid items...
                 </p>
-
             </div>
 
         </section>
 
 
-        <!-- =========================
-             WEATHER REMINDERS
-        ========================== -->
+        <!-- WEATHER REMINDERS -->
         <section
             id="weather"
             class="page-section content-section"
@@ -421,22 +350,17 @@
             </div>
 
             <div id="weatherList" class="content-grid">
-
                 <p class="empty-message">
                     Loading weather reminders...
                 </p>
-
             </div>
 
         </section>
 
-
     </main>
 
 
-    <!-- =========================
-         MORE MENU
-    ========================== -->
+    <!-- MORE MENU -->
     <div
         id="moreMenu"
         class="more-menu"
@@ -447,7 +371,6 @@
             <h3>More Services</h3>
         </div>
 
-        <!-- PREPAREDNESS GUIDE MOVED HERE -->
         <a href="#guide">
             <span>📘</span>
             Preparedness Guide
@@ -481,27 +404,24 @@
     </div>
 
 
-    <!-- =========================
-         BOTTOM NAVIGATION
-    ========================== -->
+    <!-- BOTTOM NAVIGATION -->
     <nav
         class="bottom-navigation"
         aria-label="Main navigation"
     >
 
         <a href="#home" class="bottom-nav-link active">
-            <span>⌂</span>
+            <i class="fa-solid fa-house" aria-hidden="true"></i>
             <small>Home</small>
         </a>
 
         <a href="#announcements" class="bottom-nav-link">
-            <span>📢</span>
+            <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
             <small>Announcements</small>
         </a>
 
-        <!-- USER GUIDE -->
         <a href="./residents-user-guide.html" class="bottom-nav-link">
-            <span>📖</span>
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
             <small>User Guide</small>
         </a>
 
@@ -512,7 +432,7 @@
             aria-expanded="false"
             aria-controls="moreMenu"
         >
-            <span>☰</span>
+            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
             <small>More</small>
         </button>
 
@@ -534,6 +454,7 @@
 
     <!-- RESIDENT JAVASCRIPT -->
     <script type="module" src="residents.js"></script>
+
 
     <!-- PWA SERVICE WORKER -->
     <script>
