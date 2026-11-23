@@ -35,41 +35,7 @@
             </div>
         </div>
 
-        <div class="header-actions">
-
-            <button
-                type="button"
-                id="menuToggle"
-                class="menu-toggle"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-            >
-                <span class="menu-icon">☰</span>
-            </button>
-
-        </div>
-
     </header>
-
-
-    <!-- HEADER NAVIGATION -->
-    <nav id="navigation" class="header-navigation" aria-hidden="true">
-
-        <a href="#home">Home</a>
-        <a href="#announcements">Announcements</a>
-
-        <a href="./residents-user-guide.html">
-            <i class="fas fa-book-open"></i>
-            User Guide
-        </a>
-
-        <a href="#goBag">Go Bag Checklist</a>
-        <a href="#evacuation">Evacuation Centers</a>
-        <a href="#hotlines">Emergency Hotlines</a>
-        <a href="#firstAid">First Aid Kit</a>
-        <a href="#weather">Weather Reminders</a>
-
-    </nav>
 
 
     <!-- MAIN CONTENT -->
@@ -178,6 +144,36 @@
                         Latest disaster announcements from the barangay.
                     </p>
                 </div>
+            </div>
+
+            <!-- DISASTER ALERT SUBSCRIPTION -->
+            <div class="notification-subscribe">
+
+                <div class="notification-info">
+                    <h3>
+                        <i class="fa-solid fa-bell"></i>
+                        Disaster Alerts
+                    </h3>
+
+                    <p>
+                        Enable notifications to receive important
+                        barangay announcements and emergency alerts.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    id="enableNotifications"
+                >
+                    <i class="fa-solid fa-bell"></i>
+                    Enable Notifications
+                </button>
+
+                <p
+                    id="notificationStatus"
+                    aria-live="polite"
+                ></p>
+
             </div>
 
             <div id="announcementList" class="content-grid">
@@ -365,6 +361,7 @@
         id="moreMenu"
         class="more-menu"
         aria-label="More navigation options"
+        aria-hidden="true"
     >
 
         <div class="more-menu-header">
@@ -372,33 +369,33 @@
         </div>
 
         <a href="#guide">
-            <span>📘</span>
-            Preparedness Guide
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+            <span>Preparedness Guide</span>
         </a>
 
         <a href="#goBag">
-            <span>🎒</span>
-            Go Bag Checklist
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+            <span>Go Bag Checklist</span>
         </a>
 
         <a href="#evacuation">
-            <span>🏫</span>
-            Evacuation Centers
+            <i class="fa-solid fa-school" aria-hidden="true"></i>
+            <span>Evacuation Centers</span>
         </a>
 
         <a href="#hotlines">
-            <span>☎️</span>
-            Emergency Hotlines
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <span>Emergency Hotlines</span>
         </a>
 
         <a href="#firstAid">
-            <span>🩹</span>
-            First Aid Kit
+            <i class="fa-solid fa-kit-medical" aria-hidden="true"></i>
+            <span>First Aid Kit</span>
         </a>
 
         <a href="#weather">
-            <span>🌦️</span>
-            Weather Reminders
+            <i class="fa-solid fa-cloud-sun" aria-hidden="true"></i>
+            <span>Weather Reminders</span>
         </a>
 
     </div>
