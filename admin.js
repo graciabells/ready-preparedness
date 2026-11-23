@@ -65,7 +65,7 @@ const sections = {
         table: "go_bag_items",
         fields: [
             { name: "name", label: "Item Name", placeholder: "Enter item name" },
-            { name: "image", label: "Picture Path", placeholder: "Example: images/flashlight.png" }
+            { name: "image", label: "Picture Path", placeholder: "Example: images/extra-clothes.jpg" }
         ]
     },
 
@@ -76,7 +76,7 @@ const sections = {
         table: "first_aid_items",
         fields: [
             { name: "name", label: "Item Name", placeholder: "Enter item name" },
-            { name: "image", label: "Picture Path", placeholder: "Example: images/gauze.png" }
+            { name: "image", label: "Picture Path", placeholder: "Example: images/gauze.jpg" }
         ]
     },
 
@@ -127,25 +127,24 @@ const profileKey = "readyPreparednessAdminProfile";
 function getDefaultRecords() {
     return {
         gobag: [
-            { name: "Flashlight", image: "images/flashlight.png" },
-            { name: "Battery Radio", image: "images/battery-radio.png" },
-            { name: "Drinking Water", image: "images/drinking-water.png" },
-            { name: "Canned Goods", image: "images/canned-goods.png" },
-            { name: "Extra Clothes", image: "images/extra-clothes.png" },
-            { name: "Power Bank", image: "images/power-bank.png" },
-            { name: "Whistle", image: "images/whistle.png" },
-            { name: "Facemask", image: "images/facemask.png" }
+            { name: "Extra Clothes", image: "images/extra-clothes.jpg" },
+            { name: "Documents", image: "images/documents.jpg" },
+            { name: "Drinking Water", image: "images/drinking-water.jpg" },
+            { name: "Power Bank", image: "images/power-bank.jpg" },
+            { name: "Radio", image: "images/radio.jpg" },
+            { name: "Emergency Food", image: "images/emergency-food.jpg" },
+            { name: "Whistle", image: "images/whistle.jpg" }
         ],
 
         firstaid: [
-            { name: "Gauze", image: "images/gauze.png" },
-            { name: "Scissors", image: "images/scissors.png" },
-            { name: "Adhesive Bandages", image: "images/bandages.png" },
-            { name: "Medicine", image: "images/medicine.png" },
-            { name: "Thermometer", image: "images/thermometer.png" },
-            { name: "Gloves", image: "images/gloves.png" },
-            { name: "Cotton Balls", image: "images/cotton.png" },
-            { name: "Betadine", image: "images/betadine.png" }
+            { name: "Gauze", image: "images/gauze.jpg" },
+            { name: "Scissors", image: "images/scissors.jpg" },
+            { name: "Adhesive Bandages", image: "images/bandages.jpg" },
+            { name: "Medicine", image: "images/medicine.jpg" },
+            { name: "Thermometer", image: "images/thermometer.jpg" },
+            { name: "Gloves", image: "images/gloves.jpg" },
+            { name: "Cotton Balls", image: "images/cotton.jpg" },
+            { name: "Betadine", image: "images/betadine.jpg" }
         ]
     };
 }
@@ -378,74 +377,80 @@ async function seedDefaultItems() {
 }
 
 // ==========================================
-// FIRST AID - ONE-TIME SUPABASE SYNC
+// ONE-TIME GO BAG AND FIRST AID SYNC
 // ==========================================
 
-async function syncFirstAidItemsOnce() {
-    const syncKey = "readyPreparednessFirstAid8Synced";
+async function syncChecklistItemsOnce() {
+    const syncKey = "readyPreparednessChecklistFinalSynced";
 
     if (localStorage.getItem(syncKey) === "true") {
         return;
     }
 
-    const defaults = getDefaultRecords().firstaid;
+    const defaults = getDefaultRecords();
 
-    const { data: existingItems, error } = await supabase
-        .from("first_aid_items")
-        .select("id")
-        .order("id", { ascending: true });
+    for (const section of ["gobag", "firstaid"]) {
+        const config = sections[section];
 
-    if (error) throw error;
+        const { data: existingItems, error } = await supabase
+            .from(config.table)
+            .select("id")
+            .order("id", { ascending: true });
 
-    const existing = existingItems || [];
+        if (error) throw error;
 
-    // Update existing first 8 records
-    for (let i = 0; i < defaults.length; i++) {
-        const item = defaults[i];
+        const existing = existingItems || [];
+        const finalItems = defaults[section];
 
-        if (existing[i]) {
-            const { error: updateError } = await supabase
-                .from("first_aid_items")
-                .update({
-                    item_name: item.name,
-                    image_url: item.image
-                })
-                .eq("id", existing[i].id);
+        // Update existing records
+        for (let i = 0; i < finalItems.length; i++) {
+            const item = finalItems[i];
 
-            if (updateError) throw updateError;
-        } else {
-            const { error: insertError } = await supabase
-                .from("first_aid_items")
-                .insert({
-                    item_name: item.name,
-                    image_url: item.image
-                });
+            if (existing[i]) {
+                const { error: updateError } = await supabase
+                    .from(config.table)
+                    .update({
+                        item_name: item.name,
+                        image_url: item.image
+                    })
+                    .eq("id", existing[i].id);
 
-            if (insertError) throw insertError;
+                if (updateError) throw updateError;
+
+            } else {
+                const { error: insertError } = await supabase
+                    .from(config.table)
+                    .insert({
+                        item_name: item.name,
+                        image_url: item.image
+                    });
+
+                if (insertError) throw insertError;
+            }
         }
-    }
 
-    // Remove records beyond 8
-    const extraItems = existing.slice(defaults.length);
-    const extraIds = extraItems.map(item => item.id);
+        // Remove extra records beyond the final list
+        const extraItems = existing.slice(finalItems.length);
+        const extraIds = extraItems.map(item => item.id);
 
-    if (extraIds.length > 0) {
-        const { error: deleteError } = await supabase
-            .from("first_aid_items")
-            .delete()
-            .in("id", extraIds);
+        if (extraIds.length > 0) {
+            const { error: deleteError } = await supabase
+                .from(config.table)
+                .delete()
+                .in("id", extraIds);
 
-        if (deleteError) throw deleteError;
+            if (deleteError) throw deleteError;
+        }
     }
 
     localStorage.setItem(syncKey, "true");
 
-    console.log("First Aid Checklist updated to 8 items.");
+    console.log("Go Bag and First Aid checklists updated successfully.");
 }
 
 async function loadAllRecords() {
     await seedDefaultItems();
-    await syncFirstAidItemsOnce();
+    await syncChecklistItemsOnce();
 
     for (const section of Object.keys(sections)) {
         await loadSection(section);
@@ -1019,7 +1024,7 @@ function initializeSettings() {
 
     document.getElementById("resetData").addEventListener("click", async () => {
         const confirmed = confirm(
-            "This will reset Go Bag and First Aid items to their original default lists. Continue?"
+            "This will reset Go Bag and First Aid items to their final default lists. Continue?"
         );
 
         if (!confirmed) return;
@@ -1034,11 +1039,11 @@ function initializeSettings() {
                 if (error) throw error;
             }
 
-            // Allow the First Aid sync to run again after reset
-            localStorage.removeItem("readyPreparednessFirstAid8Synced");
+            // Allow checklist synchronization to run again
+            localStorage.removeItem("readyPreparednessChecklistFinalSynced");
 
             await seedDefaultItems();
-            await syncFirstAidItemsOnce();
+            await syncChecklistItemsOnce();
             await loadAllRecords();
 
             showToast("Default items restored!");
