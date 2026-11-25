@@ -4,7 +4,11 @@ import { createClient } from "@supabase/supabase-js";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
-        return res.status(405).send("Method not allowed");
+        return res.status(405).json({
+            success: false,
+            error: "Method not allowed",
+            receivedMethod: req.method
+        });
     }
 
     try {
@@ -31,7 +35,9 @@ export default async function handler(req, res) {
         const authHeader = req.headers.authorization;
 
         if (!authHeader?.startsWith("Bearer ")) {
-            return res.status(401).send("Unauthorized");
+            return res.status(401).json({
+                error: "Unauthorized: Missing token."
+            });
         }
 
         const token = authHeader.slice(7);
@@ -45,7 +51,9 @@ export default async function handler(req, res) {
             await authClient.auth.getUser(token);
 
         if (authError || !userData.user) {
-            return res.status(401).send("Unauthorized");
+            return res.status(401).json({
+                error: "Unauthorized: Invalid session."
+            });
         }
 
         const adminClient = createClient(
@@ -61,7 +69,9 @@ export default async function handler(req, res) {
                 .maybeSingle();
 
         if (adminError || !admin) {
-            return res.status(403).send("Forbidden");
+            return res.status(403).json({
+                error: "Forbidden: Admin access required."
+            });
         }
 
         const { title, body, url } = req.body || {};
@@ -73,7 +83,7 @@ export default async function handler(req, res) {
             !body.trim()
         ) {
             return res.status(400).json({
-                error: "Invalid notification data"
+                error: "Invalid notification data."
             });
         }
 
@@ -144,7 +154,7 @@ export default async function handler(req, res) {
         console.error("Push notification error:", error);
 
         return res.status(500).json({
-            error: "Unable to send notifications."
+            error: error.message || "Unable to send notifications."
         });
     }
 }
