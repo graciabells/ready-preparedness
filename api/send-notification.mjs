@@ -1,6 +1,9 @@
 
-import webpush from "web-push";
+import { createRequire } from "node:module";
 import { createClient } from "@supabase/supabase-js";
+
+const require = createRequire(import.meta.url);
+const webpush = require("web-push");
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
@@ -35,6 +38,7 @@ export default async function handler(req, res) {
         }
 
         const token = authHeader.slice(7);
+
         const authClient = createClient(
             SUPABASE_URL,
             SUPABASE_ANON_KEY
@@ -113,7 +117,9 @@ export default async function handler(req, res) {
                     subscription,
                     payload
                 );
+
                 sent++;
+
             } catch (pushError) {
                 if (
                     pushError.statusCode === 404 ||
