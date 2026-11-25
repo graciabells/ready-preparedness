@@ -118,6 +118,11 @@ export default async function handler(req, res) {
                 sent++;
 
             } catch (pushError) {
+                console.error(
+                    "Individual push error:",
+                    pushError
+                );
+
                 if (
                     pushError.statusCode === 404 ||
                     pushError.statusCode === 410
