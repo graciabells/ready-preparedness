@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "ready-preparedness-v2";
+const CACHE_NAME = "ready-preparedness-v3";
 
 const FILES_TO_CACHE = [
     "./",
@@ -7,7 +7,10 @@ const FILES_TO_CACHE = [
     "./residents.html"
 ];
 
+// ==========================================
 // INSTALL
+// ==========================================
+
 self.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
@@ -18,7 +21,10 @@ self.addEventListener("install", (event) => {
     self.skipWaiting();
 });
 
+// ==========================================
 // ACTIVATE
+// ==========================================
+
 self.addEventListener("activate", (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -36,7 +42,10 @@ self.addEventListener("activate", (event) => {
     self.clients.claim();
 });
 
+// ==========================================
 // FETCH
+// ==========================================
+
 self.addEventListener("fetch", (event) => {
     const request = event.request;
 
@@ -55,7 +64,7 @@ self.addEventListener("fetch", (event) => {
         return;
     }
 
-    // Para sa page navigation
+    // Para sa page navigation.
     if (request.mode === "navigate") {
         event.respondWith(
             fetch(request).catch(async () => {
@@ -72,7 +81,7 @@ self.addEventListener("fetch", (event) => {
         return;
     }
 
-    // Para sa CSS, JavaScript, images, at iba pang local assets.
+    // Para sa CSS, JavaScript, images, at local assets.
     if (
         ["style", "script", "image", "font"].includes(request.destination)
     ) {
@@ -85,9 +94,69 @@ self.addEventListener("fetch", (event) => {
 
                 return response;
             }).catch(async () => {
-                return await caches.match(request) ||
-                    Response.error();
+                return await caches.match(request) || Response.error();
             })
         );
     }
+});
+
+// ==========================================
+// PUSH NOTIFICATIONS
+// ==========================================
+
+self.addEventListener("push", (event) => {
+    let data = {};
+
+    try {
+        data = event.data ? event.data.json() : {};
+    } catch (error) {
+        data = {
+            title: "Ready Preparedness",
+            body: event.data ? event.data.text() : "New announcement"
+        };
+    }
+
+    const title = data.title || "Ready Preparedness";
+
+    const options = {
+        body: data.body || "You have a new announcement.",
+        icon: "./images/icon-192.png",
+        badge: "./images/icon-192.png",
+        data: {
+            url: data.url || "./residents.html"
+        }
+    };
+
+    event.waitUntil(
+        self.registration.showNotification(title, options)
+    );
+});
+
+// ==========================================
+// NOTIFICATION CLICK
+// ==========================================
+
+self.addEventListener("notificationclick", (event) => {
+    event.notification.close();
+
+    const targetUrl = new URL(
+        event.notification.data?.url || "./residents.html",
+        self.location.origin
+    ).href;
+
+    event.waitUntil(
+        clients.matchAll({
+            type: "window",
+            includeUncontrolled: true
+        }).then((clientList) => {
+            for (const client of clientList) {
+                if (client.url.startsWith(self.location.origin)) {
+                    return client.navigate(targetUrl)
+                        .then(() => client.focus());
+                }
+            }
+
+            return clients.openWindow(targetUrl);
+        })
+    );
 });

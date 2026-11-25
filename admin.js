@@ -4,6 +4,7 @@ import { supabase } from "./supabase.js";
 // ==========================================
 // READY PREPAREDNESS
 // COMPLETE SUPABASE ADMIN DASHBOARD
+// WITH PUSH NOTIFICATIONS
 // ==========================================
 
 const sections = {
@@ -402,7 +403,6 @@ async function syncChecklistItemsOnce() {
         const existing = existingItems || [];
         const finalItems = defaults[section];
 
-        // Update existing records
         for (let i = 0; i < finalItems.length; i++) {
             const item = finalItems[i];
 
@@ -429,7 +429,6 @@ async function syncChecklistItemsOnce() {
             }
         }
 
-        // Remove extra records beyond the final list
         const extraItems = existing.slice(finalItems.length);
         const extraIds = extraItems.map(item => item.id);
 
@@ -626,7 +625,50 @@ modal?.addEventListener("click", event => {
 });
 
 // ==========================================
+// SEND PUSH NOTIFICATION
+// ==========================================
+
+async function sendAnnouncementNotification(item, wasEditing) {
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    const accessToken = sessionData.session?.access_token;
+
+    if (!accessToken) {
+        throw new Error("Admin session not found.");
+    }
+
+    const response = await fetch("/api/send-notification", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({
+            title: wasEditing
+                ? "Updated: " + item.title
+                : "New Announcement: " + item.title,
+            body: item.message,
+            url: "/residents.html"
+        })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.error || "Notification sending failed."
+        );
+    }
+
+    return result.sent;
+}
+
+// ==========================================
 // ADD AND UPDATE
+// WITH PUSH NOTIFICATIONS
 // ==========================================
 
 form?.addEventListener("submit", async event => {
@@ -643,6 +685,8 @@ form?.addEventListener("submit", async event => {
 
     const wasEditing = editingId !== null;
     const recordId = editingId;
+
+    let notificationSent = null;
 
     try {
         const item = {};
@@ -668,21 +712,60 @@ form?.addEventListener("submit", async event => {
 
         if (result.error) throw result.error;
 
+        // Send notification only for new or edited announcements.
+        if (section === "announcements") {
+            try {
+                notificationSent = await sendAnnouncementNotification(
+                    item,
+                    wasEditing
+                );
+
+            } catch (notificationError) {
+                console.error(
+                    "Notification error:",
+                    notificationError
+                );
+
+                notificationSent = false;
+            }
+        }
+
         await loadSection(section);
 
         closeModal();
         renderRecords(section);
         updateStats();
 
-        showToast(
-            wasEditing
-                ? "Changes updated successfully!"
-                : config.singular + " added successfully!"
-        );
+        if (section === "announcements") {
+            if (notificationSent === false) {
+                showToast(
+                    "Announcement saved, but notification failed."
+                );
+            } else if (notificationSent === 0) {
+                showToast(
+                    "Announcement saved. No subscribed devices found."
+                );
+            } else {
+                showToast(
+                    wasEditing
+                        ? "Announcement updated and notifications sent!"
+                        : "Announcement added and notifications sent!"
+                );
+            }
+        } else {
+            showToast(
+                wasEditing
+                    ? "Changes updated successfully!"
+                    : config.singular + " added successfully!"
+            );
+        }
 
     } catch (error) {
         console.error("Save error:", error);
-        alert("Unable to save your record.\n\n" + error.message);
+
+        alert(
+            "Unable to save your record.\n\n" + error.message
+        );
 
     } finally {
         if (submitButton) submitButton.disabled = false;
@@ -1039,7 +1122,6 @@ function initializeSettings() {
                 if (error) throw error;
             }
 
-            // Allow checklist synchronization to run again
             localStorage.removeItem("readyPreparednessChecklistFinalSynced");
 
             await seedDefaultItems();
