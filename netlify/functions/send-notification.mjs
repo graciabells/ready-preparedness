@@ -1,6 +1,9 @@
 
-import webpush from "web-push";
+import { createRequire } from "node:module";
 import { createClient } from "@supabase/supabase-js";
+
+const require = createRequire(import.meta.url);
+const webpush = require("web-push");
 
 export default async (request) => {
     if (request.method !== "POST") {
