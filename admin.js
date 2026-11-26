@@ -4,7 +4,7 @@ import { supabase } from "./supabase.js";
 // ==========================================
 // READY PREPAREDNESS
 // COMPLETE SUPABASE ADMIN DASHBOARD
-// WITH PUSH NOTIFICATIONS
+// WITHOUT PUSH NOTIFICATIONS
 // ==========================================
 
 const sections = {
@@ -625,75 +625,8 @@ modal?.addEventListener("click", event => {
 });
 
 // ==========================================
-// SEND PUSH NOTIFICATION
-// UPDATED RESPONSE HANDLING
-// ==========================================
-
-async function sendAnnouncementNotification(item, wasEditing) {
-    const { data: sessionData, error: sessionError } =
-        await supabase.auth.getSession();
-
-    if (sessionError) {
-        throw new Error("Session error: " + sessionError.message);
-    }
-
-    const accessToken = sessionData.session?.access_token;
-
-    if (!accessToken) {
-        throw new Error("Admin session not found. Please log in again.");
-    }
-
-    const apiUrl = new URL(
-        "/api/send-notification",
-        window.location.origin
-    );
-
-    const response = await fetch(apiUrl.href, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`
-        },
-        body: JSON.stringify({
-            title: wasEditing
-                ? "Updated: " + item.title
-                : "New Announcement: " + item.title,
-            body: item.message,
-            url: "/residents.html"
-        })
-    });
-
-    const responseText = await response.text();
-
-    console.log("Notification API:", {
-        url: apiUrl.href,
-        method: "POST",
-        status: response.status,
-        response: responseText
-    });
-
-    let result;
-
-    try {
-        result = responseText ? JSON.parse(responseText) : {};
-    } catch {
-        throw new Error(
-            `API returned an invalid response (${response.status}): ${responseText || "Empty response"}`
-        );
-    }
-
-    if (!response.ok) {
-        throw new Error(
-            result.error || `Notification API failed: HTTP ${response.status}`
-        );
-    }
-
-    return Number(result.sent || 0);
-}
-
-// ==========================================
-// ADD AND UPDATE
-// WITH PUSH NOTIFICATIONS
+// ADD AND UPDATE RECORDS
+// NO PUSH NOTIFICATIONS
 // ==========================================
 
 form?.addEventListener("submit", async event => {
@@ -710,8 +643,6 @@ form?.addEventListener("submit", async event => {
 
     const wasEditing = editingId !== null;
     const recordId = editingId;
-
-    let notificationSent = null;
 
     try {
         const item = {};
@@ -737,53 +668,17 @@ form?.addEventListener("submit", async event => {
 
         if (result.error) throw result.error;
 
-        // Send notification only for new or edited announcements.
-        if (section === "announcements") {
-            try {
-                notificationSent = await sendAnnouncementNotification(
-                    item,
-                    wasEditing
-                );
-
-            } catch (notificationError) {
-                console.error(
-                    "Notification error:",
-                    notificationError
-                );
-
-                notificationSent = false;
-            }
-        }
-
         await loadSection(section);
 
         closeModal();
         renderRecords(section);
         updateStats();
 
-        if (section === "announcements") {
-            if (notificationSent === false) {
-                showToast(
-                    "Announcement saved, but notification failed."
-                );
-            } else if (notificationSent === 0) {
-                showToast(
-                    "Announcement saved. No subscribed devices found."
-                );
-            } else {
-                showToast(
-                    wasEditing
-                        ? "Announcement updated and notifications sent!"
-                        : "Announcement added and notifications sent!"
-                );
-            }
-        } else {
-            showToast(
-                wasEditing
-                    ? "Changes updated successfully!"
-                    : config.singular + " added successfully!"
-            );
-        }
+        showToast(
+            wasEditing
+                ? "Changes updated successfully!"
+                : config.singular + " added successfully!"
+        );
 
     } catch (error) {
         console.error("Save error:", error);
