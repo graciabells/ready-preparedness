@@ -626,21 +626,29 @@ modal?.addEventListener("click", event => {
 
 // ==========================================
 // SEND PUSH NOTIFICATION
+// UPDATED RESPONSE HANDLING
 // ==========================================
 
 async function sendAnnouncementNotification(item, wasEditing) {
     const { data: sessionData, error: sessionError } =
         await supabase.auth.getSession();
 
-    if (sessionError) throw sessionError;
+    if (sessionError) {
+        throw new Error("Session error: " + sessionError.message);
+    }
 
     const accessToken = sessionData.session?.access_token;
 
     if (!accessToken) {
-        throw new Error("Admin session not found.");
+        throw new Error("Admin session not found. Please log in again.");
     }
 
-    const response = await fetch("/api/send-notification", {
+    const apiUrl = new URL(
+        "/api/send-notification",
+        window.location.origin
+    );
+
+    const response = await fetch(apiUrl.href, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -655,15 +663,32 @@ async function sendAnnouncementNotification(item, wasEditing) {
         })
     });
 
-    const result = await response.json();
+    const responseText = await response.text();
 
-    if (!response.ok) {
+    console.log("Notification API:", {
+        url: apiUrl.href,
+        method: "POST",
+        status: response.status,
+        response: responseText
+    });
+
+    let result;
+
+    try {
+        result = responseText ? JSON.parse(responseText) : {};
+    } catch {
         throw new Error(
-            result.error || "Notification sending failed."
+            `API returned an invalid response (${response.status}): ${responseText || "Empty response"}`
         );
     }
 
-    return result.sent;
+    if (!response.ok) {
+        throw new Error(
+            result.error || `Notification API failed: HTTP ${response.status}`
+        );
+    }
+
+    return Number(result.sent || 0);
 }
 
 // ==========================================
