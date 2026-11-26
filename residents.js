@@ -1,9 +1,9 @@
 
 import { supabase } from "./supabase.js";
-import { VAPID_PUBLIC_KEY } from "./push-config.js";
 
 // =====================================
 // READY PREPAREDNESS - RESIDENTS
+// WITHOUT PUSH NOTIFICATIONS
 // =====================================
 
 
@@ -544,127 +544,6 @@ async function loadResidentsPage() {
         weatherReminders: weather.length
     });
 }
-
-
-// =====================================
-// PUSH NOTIFICATION SUBSCRIPTION
-// INSERT ONLY - NO PUBLIC SELECT/UPDATE
-// =====================================
-
-function urlBase64ToUint8Array(base64String) {
-    const padding = "=".repeat((4 - base64String.length % 4) % 4);
-
-    const base64 = (base64String + padding)
-        .replace(/-/g, "+")
-        .replace(/_/g, "/");
-
-    const rawData = window.atob(base64);
-
-    return Uint8Array.from(
-        [...rawData].map(char => char.charCodeAt(0))
-    );
-}
-
-async function enablePushNotifications() {
-    const button = document.getElementById("enableNotifications");
-    const status = document.getElementById("notificationStatus");
-
-    if (!button || !status) return;
-
-    try {
-        if (
-            !("serviceWorker" in navigator) ||
-            !("PushManager" in window) ||
-            !("Notification" in window)
-        ) {
-            throw new Error(
-                "Your browser does not support push notifications."
-            );
-        }
-
-        if (!VAPID_PUBLIC_KEY) {
-            throw new Error("VAPID Public Key is missing.");
-        }
-
-        button.disabled = true;
-        status.textContent = "Setting up notifications...";
-
-        const permission = await Notification.requestPermission();
-
-        if (permission !== "granted") {
-            throw new Error(
-                "Notification permission was not granted."
-            );
-        }
-
-        const registration = await navigator.serviceWorker.ready;
-
-        let subscription =
-            await registration.pushManager.getSubscription();
-
-        if (!subscription) {
-            subscription = await registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey:
-                    urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
-            });
-        }
-
-        const subscriptionData = subscription.toJSON();
-
-        const endpoint = subscriptionData.endpoint;
-        const p256dh = subscriptionData.keys?.p256dh;
-        const auth = subscriptionData.keys?.auth;
-
-        if (!endpoint || !p256dh || !auth) {
-            throw new Error(
-                "Unable to retrieve notification subscription details."
-            );
-        }
-
-        // Save using INSERT only.
-        const { error } = await supabase
-            .from("push_subscriptions")
-            .insert({
-                endpoint,
-                p256dh,
-                auth
-            });
-
-        if (error) {
-            if (error.code === "23505") {
-                status.textContent =
-                    "This device is already registered for notifications.";
-
-                button.innerHTML =
-                    '<i class="fa-solid fa-check"></i> Notifications Enabled';
-
-                return;
-            }
-
-            throw error;
-        }
-
-        status.textContent =
-            "Notifications successfully enabled!";
-
-        button.innerHTML =
-            '<i class="fa-solid fa-check"></i> Notifications Enabled';
-
-    } catch (error) {
-        console.error("Notification subscription error:", error);
-
-        status.textContent =
-            error.message || "Unable to enable notifications.";
-
-    } finally {
-        button.disabled = false;
-    }
-}
-
-document
-    .getElementById("enableNotifications")
-    ?.addEventListener("click", enablePushNotifications);
 
 
 // =====================================

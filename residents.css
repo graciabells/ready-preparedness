@@ -32,7 +32,11 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: var(--background);
+    background:
+        radial-gradient(circle at 10% 15%, rgba(96, 165, 250, 0.13), transparent 28%),
+        radial-gradient(circle at 90% 40%, rgba(59, 130, 246, 0.10), transparent 30%),
+        linear-gradient(135deg, #eef4fc, #f8faff, #eaf2fb);
+    background-attachment: fixed;
     color: var(--text);
     min-height: 100vh;
     padding-bottom: 100px;
@@ -809,72 +813,6 @@ a {
 .bottom-nav-link.active i {
     background: #eaf2fc;
     transform: translateY(-2px);
-}
-
-/* PUSH NOTIFICATION */
-.notification-subscribe {
-    background: linear-gradient(135deg, #fff8ed, #ffffff);
-    border: 1px solid #f4dfc2;
-    border-left: 5px solid #f39c35;
-    border-radius: 16px;
-    padding: 22px;
-    margin: 20px 0;
-    box-shadow: 0 5px 18px rgba(229,138,32,.08);
-}
-
-.notification-info h3 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--navy);
-    margin: 0 0 8px;
-}
-
-.notification-info h3 i {
-    width: 42px;
-    height: 42px;
-    flex-shrink: 0;
-    border-radius: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffebcf;
-    color: #e58a20;
-    font-size: 20px;
-}
-
-.notification-info p {
-    color: #64748b;
-    margin: 0 0 14px;
-    line-height: 1.5;
-}
-
-#enableNotifications {
-    background: linear-gradient(135deg, #244b83, #3979c9);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 11px 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .25s;
-    box-shadow: 0 4px 12px rgba(36,75,131,.18);
-}
-
-#enableNotifications:hover {
-    background: #183967;
-    transform: translateY(-2px);
-}
-
-#enableNotifications:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-}
-
-#notificationStatus {
-    color: #287a48;
-    font-size: 13px;
-    margin: 10px 0 0;
 }
 
 /* FOOTER */
